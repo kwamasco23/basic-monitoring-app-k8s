@@ -12,7 +12,7 @@ pipeline {
         stage('Checkout Code') {
             steps {
                 git branch: 'master',
-                url: 'https://github.com/kwamasco23/Pyton-Monitoring-App.git'
+                url: 'https://github.com/kwamasco23/basic-monitoring-app-k8s.git'
             }
         }
 
