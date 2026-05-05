@@ -1,20 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: myapp
+  name: monitoring-app
 spec:
-  replicas: 5
+  replicas: 2
   selector:
     matchLabels:
-      app: myapp
+      app: monitoring-app
   template:
     metadata:
       labels:
-        app: myapp
+        app: monitoring-app
     spec:
       containers:
-      - name: myapp
-        image: myapp:latest
-        imagePullPolicy: Never
+      - name: monitoring-app
+        image: kwamasco/basicmonitoringapp4k8s:v1
         ports:
-        - containerPort: 6001
+        - containerPort: 8000
