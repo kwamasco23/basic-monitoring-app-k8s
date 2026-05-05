@@ -3,7 +3,7 @@ pipeline {
     agent any
 
     environment {
-        IMAGE = "kwamasco/basicmonitoringapp4k8s"
+        IMAGE = "kwamasco/basic-monitoring-app-k8s"
         TAG = "v${BUILD_NUMBER}"
     }
 
