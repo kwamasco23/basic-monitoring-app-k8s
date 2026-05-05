@@ -13,7 +13,21 @@ spec:
         app: monitoring-app
     spec:
       containers:
-      - name: monitoring-app
-        image: kwamasco/basicmonitoringapp4k8s:latest
-        ports:
-        - containerPort: 8000
+        - name: monitoring-app
+          image: kwamasco/basicmonitoringapp4k8s:latest
+          ports:
+            - containerPort: 8000
+
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 8000
+            initialDelaySeconds: 5
+            periodSeconds: 5
+
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 8000
+            initialDelaySeconds: 10
+            periodSeconds: 10
