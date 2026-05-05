@@ -1,0 +1,13 @@
+apiVersion: v2
+kind: Service
+metadata:
+  name: myapp-service
+spec:
+  type: NodePort
+  selector:
+    app: myapp
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 6001
+      nodePort: 30005
