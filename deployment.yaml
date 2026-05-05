@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: monitoring-app
 spec:
-  replicas: 6
+  replicas: 3
   selector:
     matchLabels:
       app: monitoring-app
@@ -14,7 +14,6 @@ spec:
     spec:
       containers:
       - name: monitoring-app
-        image: kwamasco/basicmonitoringapp4k8s:v1
+        image: kwamasco/basicmonitoringapp4k8s:latest
         ports:
         - containerPort: 8000
-

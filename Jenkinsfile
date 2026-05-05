@@ -5,7 +5,6 @@ pipeline {
     environment {
         IMAGE = "kwamasco/basicmonitoringapp4k8s"
         TAG = "v${BUILD_NUMBER}"
-        KUBECONFIG = "/var/lib/jenkins/kubeconfig"
     }
 
     stages {
@@ -42,9 +41,10 @@ pipeline {
         stage('Apply Kubernetes Config') {
             steps {
                 sh '''
-                export KUBECONFIG=$KUBECONFIG
-                kubectl apply -f deployment.yaml
-                kubectl apply -f service.yaml
+                export KUBECONFIG=/var/lib/jenkins/kubeconfig
+
+                /usr/local/bin/kubectl apply -f deployment.yaml
+                /usr/local/bin/kubectl apply -f service.yaml
                 '''
             }
         }
@@ -52,9 +52,9 @@ pipeline {
         stage('Update Image') {
             steps {
                 sh '''
-                export KUBECONFIG=$KUBECONFIG
+                export KUBECONFIG=/var/lib/jenkins/kubeconfig
 
-                kubectl set image deployment/monitoring-app \
+                /usr/local/bin/kubectl set image deployment/monitoring-app \
                 monitoring-app=$IMAGE:$TAG
                 '''
             }
@@ -63,8 +63,9 @@ pipeline {
         stage('Verify Rollout') {
             steps {
                 sh '''
-                export KUBECONFIG=$KUBECONFIG
-                kubectl rollout status deployment/monitoring-app
+                export KUBECONFIG=/var/lib/jenkins/kubeconfig
+
+                /usr/local/bin/kubectl rollout status deployment/monitoring-app
                 '''
             }
         }
