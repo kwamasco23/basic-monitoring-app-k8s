@@ -1,33 +1,26 @@
-apiVersion: apps/v1
-kind: Deployment
-metadata:
-  name: monitoring-app
-spec:
-  replicas: 8
-  selector:
-    matchLabels:
-      app: monitoring-app
-  template:
-    metadata:
-      labels:
-        app: monitoring-app
-    spec:
-      containers:
-        - name: monitoring-app
-          image: kwamasco/basicmonitoringapp4k8s:latest
-          ports:
-            - containerPort: 8000
+containers:
+  - name: monitoring-app
+    image: kwamasco/basicmonitoringapp4k8s:latest
 
-          readinessProbe:
-            httpGet:
-              path: /
-              port: 8000
-            initialDelaySeconds: 5
-            periodSeconds: 5
+    ports:
+      - containerPort: 8000
 
-          livenessProbe:
-            httpGet:
-              path: /
-              port: 8000
-            initialDelaySeconds: 10
-            periodSeconds: 10
+    readinessProbe:
+      httpGet:
+        path: /
+        port: 8000
+      initialDelaySeconds: 5
+      periodSeconds: 5
+
+    livenessProbe:
+      httpGet:
+        path: /
+        port: 8000
+      initialDelaySeconds: 10
+      periodSeconds: 10
+
+    resources:
+      requests:
+        cpu: "100m"
+      limits:
+        cpu: "200m"
